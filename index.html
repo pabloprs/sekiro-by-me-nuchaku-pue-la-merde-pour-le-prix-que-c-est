@@ -343,15 +343,40 @@
     function loop() {
         if(!isGaming) return;
       // Background selon l'acte
-if (currentAct === 0) {
-    ctx.fillStyle = '#2c1b0f'; // brun dojo
-} else if (currentAct === 1) {
-    ctx.fillStyle = '#0a0f2c'; // bleu nuit ville
-} else if (currentAct === 2) {
-    ctx.fillStyle = '#1a001a'; // violet sombre
-}
-ctx.fillRect(0,0,850,500);
+let gradient = ctx.createLinearGradient(0, 0, 0, 500);
 
+if (currentAct === 0) {
+    // ACT I - DOJO (chaleur bois / terre)
+    gradient.addColorStop(0, '#3a1f0f');
+    gradient.addColorStop(1, '#0b0502');
+} 
+else if (currentAct === 1) {
+    // ACT II - NIGHT CITY (néon bleu)
+    gradient.addColorStop(0, '#020818');
+    gradient.addColorStop(1, '#05001a');
+} 
+else if (currentAct === 2) {
+    // ACT III - VOID / TITAN (violet sombre)
+    gradient.addColorStop(0, '#1a0033');
+    gradient.addColorStop(1, '#000000');
+}
+
+ctx.fillStyle = gradient;
+ctx.fillRect(0, 0, 850, 500);
+        ctx.globalAlpha = 0.15;
+
+if (currentAct === 0) {
+    ctx.fillStyle = '#ff4d4d';
+} 
+else if (currentAct === 1) {
+    ctx.fillStyle = '#4de6ff';
+} 
+else {
+    ctx.fillStyle = '#a855f7';
+}
+
+ctx.fillRect(0, 0, 850, 500);
+ctx.globalAlpha = 1;
         p.vx = 0;
         if(keys['KeyA']) { p.vx = -7; p.dir = -1; }
         if(keys['KeyD']) { p.vx = 7; p.dir = 1; }
@@ -359,7 +384,12 @@ ctx.fillRect(0,0,850,500);
 
         updateAI();
         p.update(); e.update();
-        p.draw(); e.draw();
+        for (let i = 0; i < 5; i++) {
+    ctx.fillStyle = 'rgba(255,255,255,0.03)';
+    ctx.beginPath();
+    ctx.arc(Math.random()*850, Math.random()*500, Math.random()*2, 0, Math.PI*2);
+    ctx.fill();
+}p.draw(); e.draw();
 
         projectiles.forEach((pr, i) => {
             pr.x += pr.vx;
