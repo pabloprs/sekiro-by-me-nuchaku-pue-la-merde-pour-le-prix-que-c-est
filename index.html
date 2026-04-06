@@ -214,7 +214,7 @@
 
         update() {
             this.x += this.vx; this.y += this.vy;
-            if(this.y < 340) this.vy += 0.8; else { this.y = 340; this.vy = 0; }
+            if(this.y < 340) this.vy += 0.3; else { this.y = 340; this.vy = 0; }
             if(this.isAttacking) {
                 this.attackFrame++;
                 if(this.attackFrame > 12) { // Shorter frame for faster punching
